@@ -1,0 +1,18 @@
+.divider {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 18px;
+}
+
+.divider_line {
+    border: 1px solid #D3D3D3;
+}
+
+.divider_text {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 15px;
+    color: #6D6D6D;
+}

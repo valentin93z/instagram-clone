@@ -7,7 +7,7 @@ interface ButtonProps {
     status?: boolean;
 }
 
-const SignButton = ({children, status}: ButtonProps) => {
+const SignButton = ({ type, children, status }: ButtonProps) => {
   return (
     <button className={classes.button} disabled={status}>{children}</button>
   )

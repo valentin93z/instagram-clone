@@ -1,0 +1,29 @@
+.button {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    color: #FFFFFF;
+    background: #1877F2;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 14px;
+    cursor: pointer;
+}
+
+.button_content {
+    position: relative;
+}
+
+.button_img {
+    position: absolute;
+    top: 50%;
+    left: -25px;
+    transform: translateY(-50%);
+    display: block;
+    fill: #FFFFFF;
+}

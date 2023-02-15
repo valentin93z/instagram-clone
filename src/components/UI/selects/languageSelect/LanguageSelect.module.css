@@ -1,0 +1,19 @@
+.select {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    color: #868686;
+    cursor: pointer;
+}
+
+.selected_item {
+    display: grid;
+    grid-template-columns: auto auto;
+    place-items: center;
+    gap: 3px;
+}
+
+.selected_item svg {
+    fill: #868686;
+}

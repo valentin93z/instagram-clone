@@ -1,0 +1,33 @@
+.SignUp {
+    width: 100%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 0 28px;
+}
+
+.language_select {
+    position: absolute;
+    top: 5%;
+}
+
+.wrapper {
+    width: 100%;
+    margin-top: -10%;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 24px auto;
+}
+
+.divider {
+    margin: 32px 0;
+}
+
+.bottom_panel {
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+}

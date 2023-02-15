@@ -1,0 +1,54 @@
+.SignIn {
+    width: 100%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 0 28px;
+}
+
+.language_select {
+    position: absolute;
+    top: 5%;
+}
+
+.wrapper {
+    width: 100%;
+    margin-top: -10%;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 24px auto;
+}
+
+.help {
+    text-align: center;
+}
+
+.help_text {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 10px;
+    color: #6D6D6D;
+}
+
+.help_link {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 10px;
+    color: #23244F;
+    text-decoration: none;
+}
+
+.divider {
+    margin: 32px 0;
+}
+
+.bottom_panel {
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+}
