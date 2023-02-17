@@ -1,30 +1,70 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { loginSlice } from '../../app/slices/loginSlice';
-import SignButton from '../UI/buttons/signButton/SignButton';
-import EmailInput from '../UI/inputs/emailInput/EmailInput';
-import PasswordInput from '../UI/inputs/passwordInput/PasswordInput';
 import classes from './SignUpForm.module.css';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
+import CustomPrimaryButton from '../UI/buttons/customPrimaryButton/CustomPrimaryButton';
+import CustomInput from '../UI/inputs/customInput/CustomInput';
+import CustomPasswordInput from '../UI/inputs/customPasswordInput/CustomPasswordInput';
+import { registrationSlice } from '../../app/slices/registrationSlice';
 
 
 const SignUpForm = () => {
 
   const dispatch = useAppDispatch();
-  const { email, password } = useAppSelector(state => state.loginReducer);
+  const { username, email, password, firstname, lastname } = useAppSelector(state => state.registrationReducer);
+
+  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registrationSlice.actions.setUsername(e.target.value));
+  }
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(loginSlice.actions.setEmail(e.target.value));
+    dispatch(registrationSlice.actions.setEmail(e.target.value));
   }
 
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(loginSlice.actions.setPassword(e.target.value));
+    dispatch(registrationSlice.actions.setPassword(e.target.value));
+  }
+
+  const handleFirstname = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registrationSlice.actions.setFirstname(e.target.value));
+  }
+
+  const handleLastname = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registrationSlice.actions.setLastname(e.target.value));
+  }
+
+  const handleRegistration = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      if (user) {
+        await updateProfile(user, { displayName: username });
+        const docRef = await addDoc(collection(db, 'users'), {
+          uid: user.uid,
+          email: user.email,
+          username: user.displayName,
+          firstname,
+          lastname,
+          dateCreated: Date.now(),
+        });
+      }
+      console.log(user);
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   return (
     <form className={classes.form}>
-      <EmailInput value={email} setValue={handleEmail} />
-      <PasswordInput value={password} setValue={handlePassword} />
-      <SignButton status={email && password ? false : true}>Sign Up</SignButton>
+      <CustomInput type='email' placeholder='email' value={email} onChange={handleEmail} />
+      <CustomPasswordInput placeholder='password' value={password} onChange={handlePassword} />
+      <CustomInput type='text' placeholder='username' value={username} onChange={handleUsername} />
+      <CustomInput type='text' placeholder='firstname' value={firstname} onChange={handleFirstname} />
+      <CustomInput type='text' placeholder='lastname' value={lastname} onChange={handleLastname} />
+      <CustomPrimaryButton disabled={email && password ? false : true} onClick={(e) => handleRegistration(e)}>Sign Up</CustomPrimaryButton>
     </form>
   )
 }

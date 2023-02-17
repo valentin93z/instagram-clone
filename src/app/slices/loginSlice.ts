@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface ILogin {
+interface ILogin {
     email: string;
     password: string;
 }

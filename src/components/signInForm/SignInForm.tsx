@@ -1,10 +1,12 @@
 import React from 'react';
 import classes from './SignInForm.module.css';
-import EmailInput from '../UI/inputs/emailInput/EmailInput';
-import PasswordInput from '../UI/inputs/passwordInput/PasswordInput';
-import SignButton from '../UI/buttons/signButton/SignButton';
+import CustomInput from '../UI/inputs/customInput/CustomInput';
+import CustomPasswordInput from '../UI/inputs/customPasswordInput/CustomPasswordInput';
+import CustomPrimaryButton from '../UI/buttons/customPrimaryButton/CustomPrimaryButton';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { loginSlice } from '../../app/slices/loginSlice';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { app } from '../../firebaseConfig';
 
 
 const SignInForm = () => {
@@ -20,11 +22,22 @@ const SignInForm = () => {
     dispatch(loginSlice.actions.setPassword(e.target.value));
   }
 
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth(app);
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   return (
     <form className={classes.form}>
-      <EmailInput value={email} setValue={handleEmail} />
-      <PasswordInput value={password} setValue={handlePassword} />
-      <SignButton status={email && password ? false : true}>Sign In</SignButton>
+      <CustomInput type='email' placeholder='enter your email' value={email} onChange={handleEmail} />
+      <CustomPasswordInput placeholder='enter your password' value={password} onChange={handlePassword} />
+      <CustomPrimaryButton disabled={email && password ? false : true} onClick={(e) => handleLogin(e)}>Sign In</CustomPrimaryButton>
     </form>
   )
 }

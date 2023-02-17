@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import classes from './PasswordInput.module.css';
+import React, { FC, useState } from 'react';
+import classes from './CustomPasswordInput.module.css';
 
 interface InputProps {
+  placeholder: string;
   value: string;
-  setValue: any;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const PasswordInput = ({ value, setValue }: InputProps) => {
+const CustomPasswordInput: FC<InputProps> = ({ placeholder, value, onChange }) => {
 
   const [visibility, setVisibility] = useState(false);
 
@@ -15,9 +16,9 @@ const PasswordInput = ({ value, setValue }: InputProps) => {
       <input
         className={classes.input}
         type={visibility ? 'text' : 'password'}
-        placeholder='enter your password'
+        placeholder={placeholder}
         value={value}
-        onChange={(e) => setValue(e)}
+        onChange={(e) => onChange(e)}
       />
       <div className={classes.password_img} onClick={() => setVisibility(!visibility)}>
         {visibility
@@ -29,4 +30,4 @@ const PasswordInput = ({ value, setValue }: InputProps) => {
   )
 }
 
-export default PasswordInput;
+export default CustomPasswordInput;
