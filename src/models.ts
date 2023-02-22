@@ -1,14 +1,4 @@
 
-export interface IUser {
-    uid: string;
-    username: string;
-    emailAddress: string;
-    firstname: string;
-    lastname: string;
-    following: Array<string>;
-    followers: Array<string>;
-    dateCreated: number;
-}
 
 export interface IPost {
     username: string;

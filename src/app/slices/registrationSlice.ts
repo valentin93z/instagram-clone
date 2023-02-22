@@ -6,6 +6,8 @@ interface IRegistration {
     password: string;
     firstname: string;
     lastname: string;
+    avatarData: File | null;
+    avatar: string;
 }
 
 const initialState: IRegistration = {
@@ -14,6 +16,8 @@ const initialState: IRegistration = {
     password: '',
     firstname: '',
     lastname: '',
+    avatarData: null,
+    avatar: '',
 }
 
 export const registrationSlice = createSlice({
@@ -34,6 +38,9 @@ export const registrationSlice = createSlice({
         },
         setLastname(state, action: PayloadAction<string>) {
             state.lastname = action.payload;
+        },
+        setAvatarData(state, action: PayloadAction<File | null>) {
+            state.avatarData = action.payload;
         },
     },
 });

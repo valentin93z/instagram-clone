@@ -1,5 +1,7 @@
 import { getAuth, signOut } from 'firebase/auth';
 import React from 'react';
+import classes from './Dashboard.module.css';
+import BottomPanel from '../../components/bottomPanel/BottomPanel';
 import { app } from '../../firebaseConfig';
 
 const Dashboard = () => {
@@ -15,9 +17,10 @@ const Dashboard = () => {
     }
 
   return (
-    <div>
+    <div className={classes.dashboard}>
         <h1>You logging</h1>
         <button onClick={(e) => handleSignOut(e)}>Sign Out</button>
+        <BottomPanel />
     </div>
   )
 }

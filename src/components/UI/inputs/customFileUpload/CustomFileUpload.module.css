@@ -1,0 +1,40 @@
+.upload {
+    position: relative;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    color: #000000;
+    background: #EEEEEE;
+    border: 0.5px solid #C5C5C5;
+    border-radius: 4px;
+}
+
+.upload_container {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 12px;
+}
+
+.upload_title {
+    color: #848484;
+}
+
+.upload_title_selected {
+    color: #000000;
+}
+
+.upload_label svg {
+    display: block;
+    fill: #848484;
+}
+
+.upload_input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
