@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './BottomPanel.module.css';
-import { HomeOutlinedIcon, ExploreOutlinedIcon, MessagesOutlinedIcon, ReelsOutlinedIcon, SearchOutlinedIcon } from '../UI/icons/BottomPanelIcon';
+import { HomeOutlinedIcon, MessagesOutlinedIcon, ReelsOutlinedIcon, SearchOutlinedIcon, UserOutlinedIcon } from '../UI/icons/BottomPanelIcon';
 
 
 const BottomPanel = () => {
@@ -19,7 +19,7 @@ const BottomPanel = () => {
         <MessagesOutlinedIcon />
       </div>
       <div className={classes.icon_container}>
-        <ExploreOutlinedIcon />
+        <UserOutlinedIcon />
       </div>
     </div>
   )

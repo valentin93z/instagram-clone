@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Dashboard from './pages/dashboard/Dashboard';
+import Main from './pages/main/Main';
 import SignIn from './pages/signIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
 import { getAuth } from 'firebase/auth';
 import CircleLoader from './components/UI/loaders/circleLoader/CircleLoader';
 import { useAppDispatch } from './app/hooks';
-import { authSlice, IUser } from './app/slices/authSlice';
+import { authSlice } from './app/slices/authSlice';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import Profile from './pages/profile/Profile';
+import Home from './pages/home/Home';
 
 
 const publicRoutes = createBrowserRouter([
@@ -20,16 +21,31 @@ const publicRoutes = createBrowserRouter([
 ]);
 
 const privateRoutes = createBrowserRouter([
-  { path: '/profile', element: <Profile /> },
-  { path: '/dashboard', element: <Dashboard /> },
-  { path: '*', element: <Navigate to={'/dashboard'} replace /> },
+  {
+    path: '/main',
+    element: <Main />,
+    children: [
+      {
+        path: '/main/profile',
+        element: <Profile />
+      },
+      {
+        path: '/main/home',
+        element: <Home />
+      },
+    ],
+  },
+  {
+    path: '*',
+    element: <Navigate to={'/main/home'} replace /> 
+  },
 ]);
 
 
 function App() {
 
   const auth = getAuth();
-  const [ user, loading, error ] = useAuthState(auth);
+  const [ user, loading ] = useAuthState(auth);
   const dispatch = useAppDispatch();
 
   const fetchUserById = async (id: string) => {
