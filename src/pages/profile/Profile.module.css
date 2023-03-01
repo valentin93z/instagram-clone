@@ -125,10 +125,11 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 14px;
     padding: 0 16px;
-    margin-bottom: 18px;
 }
 
 .highlights_item {
+    display: grid;
+    place-items: center;
     list-style-type: none;
 }
 
@@ -149,30 +150,4 @@
     line-height: 14px;
     text-align: center;
     color: #000000;
-}
-
-.tabs_control {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-}
-
-.tabs_control {
-    display: grid;
-    place-items: center;
-}
-
-.tabs_control svg {
-    display: block;
-}
-
-.tab {
-    position: relative;
-}
-
-.tab_input {
-    width: 0;
-    height: 0;
-    position: absolute;
-    opacity: 0;
 }

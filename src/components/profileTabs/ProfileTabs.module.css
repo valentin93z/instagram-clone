@@ -1,0 +1,21 @@
+.profile_tabs {
+    position: relative;
+}
+
+.tabs_control {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    background: #FFFFFF;
+    padding: 18px 0 12px 0;
+}
+
+.tab {
+    cursor: pointer;
+}
+
+.tabs_control svg {
+    display: block;
+}

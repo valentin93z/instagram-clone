@@ -12,6 +12,9 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import Profile from './pages/profile/Profile';
 import Home from './pages/home/Home';
+import Search from './pages/search/Search';
+import Messages from './pages/messages/Messages';
+import Reels from './pages/reels/Reels';
 
 
 const publicRoutes = createBrowserRouter([
@@ -26,18 +29,30 @@ const privateRoutes = createBrowserRouter([
     element: <Main />,
     children: [
       {
-        path: '/main/profile',
-        element: <Profile />
+        path: '/main/home',
+        element: <Home />,
       },
       {
-        path: '/main/home',
-        element: <Home />
+        path: '/main/search',
+        element: <Search />,
+      },
+      {
+        path: '/main/reels',
+        element: <Reels />,
+      },
+      {
+        path: '/main/messages',
+        element: <Messages />,
+      },
+      {
+        path: '/main/profile',
+        element: <Profile />,
       },
     ],
   },
   {
     path: '*',
-    element: <Navigate to={'/main/home'} replace /> 
+    element: <Navigate to={'/main/profile'} replace /> 
   },
 ]);
 

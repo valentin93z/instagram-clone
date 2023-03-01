@@ -1,0 +1,41 @@
+.container {
+    width: 100%;
+    min-height: 220px;
+    display: grid;
+    place-items: center;
+    padding: 0 16px;
+}
+
+.wrapper {
+    max-width: 270px;
+    display: grid;
+    place-items: center;
+}
+
+.circle_border {
+    width: 90px;
+    height: 90px;
+    display: grid;
+    place-items: center;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 16px;
+    color: #000000;
+}

@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import { FC } from 'react';
 import classes from './Profile.module.css';
 import { ref } from 'firebase/storage';
 import { useAppSelector } from '../../app/hooks';
 import { storage } from '../../firebaseConfig';
 import { useDownloadURL } from 'react-firebase-hooks/storage';
-import { DiscoverPeopleIcon, PostsTabIcon, ReelsTabIcon, TagsTabIcon } from '../../components/UI/icons/ProfileIcons';
+import { DiscoverPeopleIcon } from '../../components/UI/icons/ProfileIcons';
+import ProfileTabs from '../../components/profileTabs/ProfileTabs';
 
-const Profile = () => {
+const Profile: FC = () => {
 
   const { username, firstname, lastname, profilePhoto } = useAppSelector(state => state.authReducer.user);
   const [ photoUrl ] = useDownloadURL(profilePhoto ? ref(storage, profilePhoto) : null);
-
-  const [ tabValue, setTabValue ] = useState('posts');
   
   return (
     <div>
@@ -61,54 +60,7 @@ const Profile = () => {
           <p className={classes.highlights_title}>New</p>
         </li>
       </ul>
-      <div className={classes.profile_tabs}>
-        <div className={classes.tabs_control}>
-          <div className={classes.tab}>
-            <input
-              className={classes.tab_input}
-              type="radio"
-              name="profile_tabs"
-              id="tab_posts"
-              checked={tabValue === 'posts'}
-              onChange={() => setTabValue('posts')}
-            />
-            <label htmlFor='tab_posts'>
-              <PostsTabIcon />
-            </label>
-          </div>
-          <div className={classes.tab}>
-            <input
-              className={classes.tab_input}
-              type="radio"
-              name="profile_tabs"
-              id="tab_reels"
-              checked={tabValue === 'reels'}
-              onChange={() => setTabValue('reels')}
-            />
-            <label htmlFor='tab_reels'>
-              <ReelsTabIcon />
-            </label>
-          </div>
-          <div className={classes.tab}>
-            <input
-              className={classes.tab_input}
-              type="radio"
-              name="profile_tabs"
-              id="tab_tags"
-              checked={tabValue === 'tags'}
-              onChange={() => setTabValue('tags')}
-            />
-            <label htmlFor='tab_tags'>
-              <TagsTabIcon />
-            </label>
-          </div>
-        </div>
-        <div className={classes.tabs_content}>
-          {tabValue === 'posts' && <div>posts</div>}
-          {tabValue === 'reels' && <div>reels</div>}
-          {tabValue === 'tags' && <div>tags</div>}
-        </div>
-      </div>
+      <ProfileTabs />
     </div>
   )
 }
