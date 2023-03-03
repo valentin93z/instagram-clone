@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DocumentData, DocumentSnapshot } from "firebase/firestore";
 
 interface IAuth {
     user: IUser;

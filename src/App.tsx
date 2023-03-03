@@ -15,6 +15,7 @@ import Home from './pages/home/Home';
 import Search from './pages/search/Search';
 import Messages from './pages/messages/Messages';
 import Reels from './pages/reels/Reels';
+import NewPost from './pages/newPost/NewPost';
 
 
 const publicRoutes = createBrowserRouter([
@@ -49,6 +50,10 @@ const privateRoutes = createBrowserRouter([
         element: <Profile />,
       },
     ],
+  },
+  {
+    path: '/new-post',
+    element: <NewPost />,
   },
   {
     path: '*',
