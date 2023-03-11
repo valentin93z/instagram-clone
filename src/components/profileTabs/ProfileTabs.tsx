@@ -5,7 +5,14 @@ import Posts from './tabs/posts/Posts';
 import Reels from './tabs/reels/Reels';
 import Tags from './tabs/tags/Tags';
 
-const ProfileTabs: FC = () => {
+
+interface TabProps {
+  posts: Array<any>;
+  reels?: Array<any>;
+  tags?: Array<any>;
+}
+
+const ProfileTabs: FC<TabProps> = ({ posts, reels, tags }) => {
 
     const [ tabValue, setTabValue ] = useState('posts');
 
@@ -23,7 +30,7 @@ const ProfileTabs: FC = () => {
         </div>
       </div>
       <div className={classes.tabs_content}>
-        {tabValue === 'posts' && <Posts />}
+        {tabValue === 'posts' && <Posts posts={posts} />}
         {tabValue === 'reels' && <Reels />}
         {tabValue === 'tags' && <Tags />}
       </div>

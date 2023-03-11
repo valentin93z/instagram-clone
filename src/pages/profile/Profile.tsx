@@ -1,28 +1,52 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import classes from './Profile.module.css';
-import { ref } from 'firebase/storage';
-import { useAppSelector } from '../../app/hooks';
-import { storage } from '../../firebaseConfig';
-import { useDownloadURL } from 'react-firebase-hooks/storage';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { db } from '../../firebaseConfig';
 import { DiscoverPeopleIcon } from '../../components/UI/icons/ProfileIcons';
 import ProfileTabs from '../../components/profileTabs/ProfileTabs';
+import { BurgerIcon, PlusIcon } from '../../components/UI/icons/Icons';
+import { Link } from 'react-router-dom';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { postSlice } from '../../app/slices/postSlice';
 
 const Profile: FC = () => {
 
-  const { username, firstname, lastname, profilePhoto } = useAppSelector(state => state.authReducer.user);
-  const [ photoUrl ] = useDownloadURL(profilePhoto ? ref(storage, profilePhoto) : null);
+  const dispatch = useAppDispatch();
+  const { username, firstname, lastname, profilePhoto, uid } = useAppSelector(state => state.authReducer.user);
+  const { userPosts } = useAppSelector(state => state.postReducer);
+
+  const fetchPosts = async () => {
+    const q = query(collection(db, 'posts'), where('uid', '==', uid));
+    const posts: any = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      posts.push(doc.data());
+    });
+    dispatch(postSlice.actions.getUserPosts(posts));
+  }
+
+  useEffect(() => {
+    uid && fetchPosts();
+  }, [uid]);
+
   
   return (
     <div>
       <div className={classes.upbar}>
         <div className={classes.username}>{username}</div>
         <div className={classes.menu_button}>
-        <svg height='14px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>        </div>
+          <Link to='/new-post'>
+            <PlusIcon width='18px' height='18px' />
+          </Link>
+          <div>
+            <BurgerIcon width='18px' height='18px' />
+          </div>
+        </div>
       </div>
       <div className={classes.profile_header}>
         <div className={classes.profile_info}>
           <div className={classes.profile_photo}>
-            <img width='100%' src={photoUrl} alt='' style={{objectFit: 'cover'}} />
+            <img width='100%' src={profilePhoto} alt='' style={{objectFit: 'cover'}} />
           </div>
           <ul className={classes.user_info_list}>
             <li className={classes.user_info_item}>
@@ -60,7 +84,7 @@ const Profile: FC = () => {
           <p className={classes.highlights_title}>New</p>
         </li>
       </ul>
-      <ProfileTabs />
+      <ProfileTabs posts={userPosts} />
     </div>
   )
 }

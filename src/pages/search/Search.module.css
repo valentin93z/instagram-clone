@@ -1,0 +1,14 @@
+.search_topbar {
+    display: grid;
+    align-items: center;
+    gap: 5px;
+    padding: 20px 6px 10px 6px;
+}
+
+.topbar_icon_container {
+    padding: 8px 14px;
+}
+
+.topbar_icon_container svg {
+    display: block;
+}

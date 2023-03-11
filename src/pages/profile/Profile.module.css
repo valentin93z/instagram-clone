@@ -15,9 +15,9 @@
 }
 
 .menu_button {
-    width: 14px;
-    height: 14px;
     display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 15px;
     place-items: center;
 }
 

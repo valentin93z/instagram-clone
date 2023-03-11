@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Main from './pages/main/Main';
@@ -76,7 +76,6 @@ function App() {
   useEffect(() => {
     user && fetchUserById(user.uid);
   }, [user]);
-
 
   if (loading) return <CircleLoader />
 

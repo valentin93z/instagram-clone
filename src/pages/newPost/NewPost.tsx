@@ -1,6 +1,8 @@
-import { addDoc, collection } from 'firebase/firestore';
-import { ref, uploadBytes } from 'firebase/storage';
+import { doc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { nanoid } from 'nanoid';
 import { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { postSlice } from '../../app/slices/postSlice';
 import { LeftArrow } from '../../components/UI/icons/Icons';
@@ -13,24 +15,32 @@ const NewPost: FC = () => {
   const { user } = useAppSelector(state => state.authReducer);
   const { caption, photos, preview } = useAppSelector(state => state.postReducer.newPost);
 
+  const navigate = useNavigate();
+
   const sharePost = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       if (photos && caption) {
+        const postId = nanoid();
         const photosPathURLs = [];
         for (let i = 0; i < photos.length; i++) {
-          const photoPath = `photos/${user.uid}/${Date.now()}-${photos[i].name}`;
+          const photoPath = `photos/${user.uid}/${postId}/${Date.now()}-${photos[i].name}`;
           const storageRef = ref(storage, photoPath);
           await uploadBytes(storageRef, photos[i]);
-          photosPathURLs.push(photoPath);
+          const downloadUrl = await getDownloadURL(storageRef);
+          photosPathURLs.push(downloadUrl);
         }
-        await addDoc(collection(db, 'posts'), {
+        await setDoc(doc(db, 'posts', postId), {
+          postId: postId,
           uid: user.uid,
           caption: caption,
           photos: photosPathURLs,
+          likes: [],
+          comments: [],
           dateCreated: Date.now(),
         });
         dispatch(postSlice.actions.setResetNewPost());
+        navigate('/main/profile');
       } else {
         alert("Attach photo and write caption!");
       }
@@ -63,7 +73,9 @@ const NewPost: FC = () => {
   return (
     <div className={classes.container}>
       <div className={classes.topbar}>
-        <LeftArrow width='10px' height='20px' />
+        <div onClick={() => navigate(-1)}>
+          <LeftArrow width='10px' height='20px' />
+        </div>
         <div className={classes.topbar_title}>New Post</div>
         <button className={classes.topbar_button} onClick={sharePost}>Share</button>
       </div>

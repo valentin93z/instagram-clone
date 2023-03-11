@@ -8,6 +8,7 @@
     grid-template-columns: repeat(5, auto);
     justify-content: space-between;
     align-items: center;
+    background: #FFFFFF;
     border-top: 1px solid #C9C9C9;
     padding: 14px 25px;
     margin: 0 auto;

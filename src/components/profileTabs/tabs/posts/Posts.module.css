@@ -1,0 +1,21 @@
+.posts_container {
+    width: 100%;
+}
+
+.posts_list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    justify-content: center;
+    align-items: start;
+}
+
+.post_item {
+    list-style-type: none;
+}
+
+.post_img {
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}

@@ -2,9 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IPost {
     postId: string;
-    userId: string;
-    username: string;
-    src: Array<string>;
+    uid: string;
+    photos: Array<string>;
     caption: string;
     likes: Array<string>;
     comments: IComment[];
@@ -56,7 +55,10 @@ export const postSlice = createSlice({
             state.newPost.caption = '';
             state.newPost.photos = null;
             state.newPost.preview = null;
-        }
+        },
+        getUserPosts(state, action: PayloadAction<any>) {
+            state.userPosts = action.payload;
+        },
     },
 });
 

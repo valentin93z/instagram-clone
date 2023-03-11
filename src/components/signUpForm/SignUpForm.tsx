@@ -9,7 +9,7 @@ import CustomInput from '../UI/inputs/customInput/CustomInput';
 import CustomPasswordInput from '../UI/inputs/customPasswordInput/CustomPasswordInput';
 import { registrationSlice } from '../../app/slices/registrationSlice';
 import CustomFileUpload from '../UI/inputs/customFileUpload/CustomFileUpload';
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 
 const SignUpForm = () => {
@@ -36,7 +36,8 @@ const SignUpForm = () => {
           const filePath = `avatars/${Date.now()}-${avatarData.name}`;
           const storageRef = ref(storage, filePath);
           await uploadBytes(storageRef, avatarData);
-          await setDoc(doc(db, 'users', user.uid), { profilePhoto: filePath }, { merge: true });
+          const downloadUrl = await getDownloadURL(storageRef);
+          await setDoc(doc(db, 'users', user.uid), { profilePhoto: downloadUrl }, { merge: true });
         }
       }
     } catch(err) {
